@@ -1,14 +1,12 @@
 import React from 'react';
 // import Image from './Image'; // ./ means it's a local file and not from react's module.
 import Todos from './Todos';
-import AddTodo from './AddTodo';
 
-class App extends React.Component {
+class App extends React.Component { //adding additional classes into the react library.
     render() {
         return (
             <div>
                 <h1>To-Do List</h1>
-                <AddTodo></AddTodo>
                 <Todos></Todos>
             </div>  
         )
@@ -18,6 +16,7 @@ class App extends React.Component {
 
 export default App;
 
+//example from class showing a couple of different ways to use a photo with react.
 // import React from 'react';
 // // import Image from './Image'; // ./ means it's a local file and not from react's module.
 // import Todos from './Todos';

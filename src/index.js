@@ -11,5 +11,5 @@ import './index.css'; //this is unique to the react tool. css mashing. you can s
 //root is where it drops react into html. drops the app component into that one spot, and that's all it can do.  the app component can have multiple things in it, though.
 ReactDOM.render(
   <App />,
-  document.getElementById('root')
+  document.getElementById('root') // this goes to the HTML and sticks everything at that root variable.
 );
