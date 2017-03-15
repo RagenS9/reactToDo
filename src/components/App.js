@@ -1,5 +1,4 @@
 import React from 'react';
-// import Image from './Image'; // ./ means it's a local file and not from react's module.
 import Todos from './Todos';
 
 class App extends React.Component { //adding additional classes into the react library.
@@ -12,7 +11,6 @@ class App extends React.Component { //adding additional classes into the react l
         )
     }
 }
-        
 
 export default App;
 

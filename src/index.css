@@ -20,3 +20,7 @@ h1 {
 .TodosList {
     padding: 10px 30px; 
 }
+
+.done {
+    text-decoration: line-through;
+}
