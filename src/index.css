@@ -24,3 +24,7 @@ h1 {
 .done {
     text-decoration: line-through;
 }
+
+.completedTodosList {
+    padding: 10px 30px; 
+}

@@ -23,23 +23,29 @@ class AddTodo extends React.Component {
     }
 
     render () {
-        return <div>
-            <div className="form-group">
-                <select className="form-control" value={this.state.category} onChange={(e) => this.setState({category: e.target.value})}>
-                    <option value="">Select category...</option>
-                    <option value="fun">Fun</option>
-                    <option value="home">Home</option>
-                    <option value="school">School</option>
-                    <option value="work">Work</option>
-                </select>
-            </div>
-            <div className="form-group">
-                <div className="input-group">
-                    <input type="text" className="form-control" value={this.state.description} onChange={(e) => this.setState({description: e.target.value})}/>
-                    <span className="input-group-btn">
-                        <button className="btn btn-default" type="button" onClick={() => this.onClick(this.props.addTodo)}>Add Todo</button>
-                    </span>
+        return <div className="row">
+            <div className="col-xs-3">
+                <div className="form-group">
+                    <select className="form-control" value={this.state.category} onChange={(e) => this.setState({category: e.target.value})}>
+                        <option value="">Select category...</option>
+                        <option value="fun">Fun</option>
+                        <option value="home">Home</option>
+                        <option value="school">School</option>
+                        <option value="work">Work</option>
+                    </select>
                 </div>
+            </div>
+
+            <div className="col-xs-9">
+                <div className="form-group">
+                    <div className="input-group">
+                        <input type="text" className="form-control" value={this.state.description} onChange={(e) => this.setState({description: e.target.value})}/>
+                        <span className="input-group-btn">
+                            <button className="btn btn-default" type="button" onClick={() => this.onClick(this.props.addTodo)}>Add Todo</button>
+                        </span>
+                    </div>
+            </div>
+            
             </div>
         </div>
     }

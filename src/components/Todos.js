@@ -3,6 +3,9 @@
 import React from 'react';
 import AddTodo from './AddTodo';
 import Todo from './Todo';
+import { connect } from 'react-redux'
+import { browserHistory } from 'react-router'
+
 
 class Todos extends React.Component {
 
@@ -18,10 +21,10 @@ class Todos extends React.Component {
         this.addTodo = this.addTodo.bind(this)
         this.toggleComplete = this.toggleComplete.bind(this)
 
-//initial state
-        this.state = { //object literal. one object--todos. 
-            todos: [] //initially, we have an empty array. no todos.
-        }
+//initial state--do not need this when we use Redux. but need when not using Redux.
+        // this.state = { //object literal. one object--todos. 
+            // todos: [] //initially, we have an empty array. no todos.
+        // }
     }
 
 //react lifecycle methods
@@ -34,7 +37,7 @@ class Todos extends React.Component {
     getTodos() {
         fetch('/api/v1/todos')
         .then(response => response.json()) //parse the response back
-        .then(todos => this.setState({todos: todos})) // take the parsed response and modify the state and put in the new value--the new state. Get a bunch of todos from the database and put that in as the new state. 
+        .then(todos => this.props.dispatch({type: 'TODOS_UPDATE', body: todos})) // take the parsed response and modify the state and put in the new value--the new state. Get a bunch of todos from the database and put that in as the new state. 
     }
 
 //he moved addTodo from AddTodo file to here. because anything that's impacting the state of todos should be here. it would still work in AddTodo where we had it.
@@ -56,7 +59,7 @@ class Todos extends React.Component {
                 })
             })
             .then(this.getTodos)
-    }
+        }
     }
 
 //probably will have an if statement instead of the turinaries
@@ -71,7 +74,7 @@ class Todos extends React.Component {
         //toggleComplte passes the parent toggleComplete to the child.
         //key is assigning a unique id to this thing. essential for react whenever you're doing an array.
         //{...todo} spread operator. pulls all of the properties. so no longer need description or category.  need key and the spread operator, and that's it.
-        let todos = this.state.todos.map((todo, key) => <Todo key={key} {...todo} toggleComplete={this.toggleComplete} />)
+        let todos = this.props.sharedTodos.map((todo, key) => <Todo key={key} {...todo} toggleComplete={this.toggleComplete} />)
 
         if (todos.length === 0) {
             todos = <div className="alert alert-success text-center">Please start by adding a todo in the box above.</div>
@@ -80,6 +83,9 @@ class Todos extends React.Component {
         return (
             <div>
                 <div className="TodosList">
+                    <div className="well well-sm">
+                        <button className="btn btn-default" type="button" onClick={() => browserHistory.push('/completed')}>View Completed Todos</button>
+                    </div>
                     <AddTodo addTodo={this.addTodo} />
                         <ul className="list-group">
                             {todos}
@@ -91,13 +97,18 @@ class Todos extends React.Component {
 }
 
 //export the component 
-export default Todos;
+// Map shared Redux state to props
+const mapStateToProps = (redux) => {
+    return {
+        sharedTodos: redux.state.todos
+    }
+}
 
-//how collin did the button in class
-// <div className="well well-sm">
-//                 <button className="btn btn-default" type="button" onClick={() => browserHistory.push('/completed')}>Completed Todos</button>
-//             </div>
+// Export the component, connected to Redux, for other components to import
+export default connect(mapStateToProps)(Todos)
 
+// how we used to export
+// export default Todos;
 
 // how I did it for D1 assignment, before it was interactive.
 //     render () {
